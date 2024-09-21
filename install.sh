@@ -98,22 +98,25 @@ fi
 
 # Install nerd-fonts on macos
 if [ "$OS" == "macos" ]; then
-  INSTALLED_CASKS=$(brew list --cask | wc -l)
+  INSTALLED_CASKS=$(brew list --cask | grep 'font-.*-nerd-font' | wc -l)
   TOTAL_CASKS=$(brew search --cask '/font-.*-nerd-font/' | wc -l)
-  if [ $INSTALLED_CASKS -ne $TOTAL_CASKS ]; then
+  if [ $INSTALLED_CASKS -lt $TOTAL_CASKS ]; then
     echo -e "${GREEN}Installing nerd-fonts...${NC}"
     brew search --cask '/font-.*-nerd-font/' | awk '{ print $1 }' | xargs -I{} brew install --cask {}
   fi
 fi
 
 # Install brew packages
-echo -e "${GREEN}Installing brew packages...${NC}"
-brew install neovim tmux gh glab git-lfs
-
-# Install stow
-if ! command -v stow &>/dev/null; then
-  echo -e "${GREEN}Installing stow...${NC}"
-  brew install stow
+initial_packages="tmux neovim gh glab stow"
+missing_packages=""
+for package in $initial_packages; do
+  if ! brew list --formula | grep -q $package; then
+    missing_packages="$missing_packages $package"
+  fi
+done
+if [ -n "$missing_packages" ]; then
+  echo -e "${GREEN}Installing brew packages...${NC}"
+  brew install $missing_packages
 fi
 
 # Install dotfiles
@@ -122,3 +125,4 @@ stow -t $HOME -v --adopt -R . --ignore=install.sh
 echo -e "${GREEN}Dotfiles installed successfully.${NC}"
 echo -e "${GREEN}Please restart your terminal to apply changes.${NC}"
 echo -e "${GREEN}You can run 'brew bundle' to install your apps.${NC}"
+

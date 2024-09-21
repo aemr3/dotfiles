@@ -83,7 +83,7 @@ if [ "$OS" == "linux" ]; then
     if ! command -v zsh &>/dev/null; then
       brew install zsh
     fi
-    chsh -s $(which zsh)
+    sudo chsh -s $(which zsh) $USER
   fi
 fi
 
@@ -106,6 +106,10 @@ if [ "$OS" == "macos" ]; then
   fi
 fi
 
+# Install brew packages
+echo -e "${GREEN}Installing brew packages...${NC}"
+brew install neovim tmux gh glab git-lfs
+
 # Install stow
 if ! command -v stow &>/dev/null; then
   echo -e "${GREEN}Installing stow...${NC}"
@@ -117,7 +121,4 @@ echo -e "${GREEN}Installing dotfiles...${NC}"
 stow -t $HOME -v --adopt -R . --ignore=install.sh
 echo -e "${GREEN}Dotfiles installed successfully.${NC}"
 echo -e "${GREEN}Please restart your terminal to apply changes.${NC}"
-
-# Install brew packages
-echo -e "${GREEN}Installing brew packages...${NC}"
-brew bundle --file=$HOME/.config/brew/Brewfile
+echo -e "${GREEN}You can run 'brew bundle' to install your apps.${NC}"

@@ -19,7 +19,7 @@ return {
 	initial_rows = 48,
 	font_size = 12.0,
 	font = wezterm.font_with_fallback({
-    { family = "Monaspace Neon", weight = mini and "Bold" or "DemiBold" },
+		{ family = "Monaspace Neon", weight = mini and "Bold" or "DemiBold" },
 		{ family = "Monaspace Argon", weight = mini and "Bold" or "DemiBold" },
 		{ family = "Monaspace Xenon", weight = mini and "Bold" or "DemiBold" },
 		{ family = "Monaspace Radon", weight = mini and "Bold" or "DemiBold" },
@@ -87,26 +87,20 @@ return {
 		k.cmd_key("LeftArrow", act.SendKey({ mods = "CTRL", key = "h" })),
 		k.cmd_key("RightArrow", act.SendKey({ mods = "CTRL", key = "l" })),
 		k.cmd_key(
-			"W",
-			wezterm.action_callback(function()
-				w.save_new_random_image()
-				wezterm.reload_configuration()
-			end)
-		),
-		k.cmd_key(
 			"R",
 			wezterm.action_callback(function()
-				w.get_wallpaper(true)
+				w.get_wallpaper()
 				wezterm.reload_configuration()
 			end)
 		),
-		k.cmd_key(
-			"X",
-			wezterm.action_callback(function()
-				w.delete_current_wallpaper()
-				wezterm.reload_configuration()
-			end)
+		k.ctrl_key(
+			"F",
+			act.Multiple({
+				act.ToggleFullScreen,
+				wezterm.action_callback(function()
+					wezterm.reload_configuration()
+				end),
+			})
 		),
-		k.ctrl_key("F", act.ToggleFullScreen),
 	},
 }

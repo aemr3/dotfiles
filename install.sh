@@ -108,7 +108,11 @@ if [ "$OS" == "macos" ]; then
 fi
 
 # Install brew packages
-initial_packages="tmux neovim gh glab stow"
+if ! brew list --formula | grep -q tmux; then
+  echo -e "${GREEN}Installing latest tmux...${NC}"
+  brew install tmux --HEAD
+fi
+initial_packages="neovim gh glab stow"
 missing_packages=""
 for package in $initial_packages; do
   if ! brew list --formula | grep -q $package; then

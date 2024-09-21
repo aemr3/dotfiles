@@ -61,6 +61,7 @@ if [ ! -d "$SCRIPT_DIR/.git" ]; then
   fi
 else
   cd $SCRIPT_DIR
+  git pull 2>/dev/null >/dev/null
 fi
 
 # Install homebrew
@@ -125,4 +126,3 @@ stow -t $HOME -v --adopt -R . --ignore=install.sh
 echo -e "${GREEN}Dotfiles installed successfully.${NC}"
 echo -e "${GREEN}Please restart your terminal to apply changes.${NC}"
 echo -e "${GREEN}You can run 'brew bundle' to install your apps.${NC}"
-

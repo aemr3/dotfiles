@@ -11,7 +11,7 @@ brew "fzf"
 brew "ripgrep"
 brew "btop"
 brew "htop"
-brew "tmux"
+brew "tmux", args: ["HEAD"]
 brew "gh"
 brew "glab"
 brew "gnu-sed"

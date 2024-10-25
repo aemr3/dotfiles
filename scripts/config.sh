@@ -21,6 +21,6 @@ stow_dotfiles() {
   local to_stow="$(find stow -maxdepth 1 -type d -mindepth 1 | awk -F "/" '{print $NF}' ORS=' ')"
   info "Stowing: $to_stow"
   for dir in $to_stow; do
-    stow -d stow --target "$HOME" --no-folding "$dir"
+    stow -d stow -v -t "$HOME" --no-folding --adopt "$dir"
   done
 }

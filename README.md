@@ -13,10 +13,12 @@ sudo apt install git curl procps build-essential
 
 ## Installation
 
-Clone the repository and run `install.sh` script. Or you can run the following command:
+Clone the repository and run `install.sh` script.
 
 ```bash
-curl -sSL https://raw.githubusercontent.com/aemr3/dotfiles/main/install.sh | bash
+git clone https://github.com/aemr3/dotfiles.git
+cd dotfiles
+./install.sh
 ```
 
 It will install brew, zsh, oh-my-zsh, tmux, neovim, and other tools

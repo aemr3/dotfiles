@@ -100,7 +100,7 @@ return {
           "lua_ls",
           "jsonls",
           "omnisharp",
-          "ruff_lsp",
+          "ruff",
           "terraformls",
           "gopls",
           "rust_analyzer",

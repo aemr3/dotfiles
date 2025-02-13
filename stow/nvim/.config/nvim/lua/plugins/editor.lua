@@ -25,7 +25,7 @@ return {
         desc = "Switch Buffer",
       },
       { "<leader>:", "<cmd>Telescope command_history<cr>", desc = "Command History" },
-      { "<leader><space>", "<cmd>Telescope git_files<cr>", desc = "Git Files" },
+      { "<leader>fg", "<cmd>Telescope git_files<cr>", desc = "Git Files" },
       -- find
       { "<leader>fb", "<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>", desc = "Buffers" },
       { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find Files" },
@@ -33,7 +33,22 @@ return {
       -- git
       { "<leader>fc", "<cmd>Telescope git_commits<CR>", desc = "commits" },
       -- search
-      { "<leader>fg", ":lua require('telescope').extensions.live_grep_args.live_grep_args()<CR>", desc = "Grep Files" },
+      {
+        "<leader><space>",
+        function()
+          require("telescope").extensions.live_grep_args.live_grep_args({
+            additional_args = {
+              "-L",
+              "--hidden",
+              "--glob",
+              "!.git",
+              "--glob",
+              "!node_modules",
+            },
+          })
+        end,
+        desc = "Grep Files",
+      },
       { '<leader>s"', "<cmd>Telescope registers<cr>", desc = "Registers" },
       { "<leader>sa", "<cmd>Telescope autocommands<cr>", desc = "Auto Commands" },
       { "<leader>sb", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Buffer" },

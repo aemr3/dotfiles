@@ -59,6 +59,7 @@ return {
         "StatusLine",
         "StatusLineNC",
         "EndOfBuffer",
+        "CursorLine",
       },
     },
   },

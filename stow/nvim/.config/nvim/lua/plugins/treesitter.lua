@@ -67,6 +67,7 @@ return {
         "python",
         "query",
         "regex",
+        "ruby",
         "rust",
         "sql",
         "terraform",

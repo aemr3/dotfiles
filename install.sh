@@ -6,14 +6,12 @@ set -o nounset
 . scripts/env.sh
 . scripts/config.sh
 . scripts/apps.sh
-. scripts/fonts.sh
 . scripts/utils.sh
 
 check_essential_packages
 install_brew
 install_ohmyzsh
 enable_zsh
-install_nerd_fonts
 install_brew_packages
 stow_dotfiles
 

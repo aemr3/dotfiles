@@ -16,8 +16,8 @@ sudo apt install git curl procps build-essential
 Clone the repository and run `install.sh` script.
 
 ```bash
-git clone https://github.com/aemr3/dotfiles.git
-cd dotfiles
+git clone https://github.com/aemr3/dotfiles.git .dotfiles
+cd .dotfiles
 ./install.sh
 ```
 

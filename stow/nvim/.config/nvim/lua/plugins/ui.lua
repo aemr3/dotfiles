@@ -336,19 +336,29 @@ return {
         "~/app/*",
       },
       last_session_on_startup = false,
+      picker = {
+        type = "telescope",
+        preview = {
+          enabled = false,
+          git_status = false,
+          git_fetch = false,
+          show_hidden = true,
+        },
+      },
     },
     init = function()
       vim.opt.sessionoptions:append("globals")
     end,
     dependencies = {
       { "nvim-lua/plenary.nvim" },
-      { "nvim-telescope/telescope.nvim", tag = "0.1.4" },
+      { "nvim-telescope/telescope.nvim" },
       { "Shatur/neovim-session-manager" },
+      { "ibhagwan/fzf-lua" },
     },
     lazy = false,
     priority = 100,
     keys = {
-      { "<leader>fp", "<Cmd>Telescope neovim-project discover<CR>", desc = "Projects" },
+      { "<leader>fp", "<Cmd>NeovimProjectDiscover history<CR>", desc = "Projects" },
     },
   },
   {
@@ -399,7 +409,7 @@ return {
               key = "g",
             },
             {
-              action = "Telescope neovim-project discover",
+              action = "NeovimProjectDiscover history",
               desc = " Projects",
               icon = " ",
               key = "p",

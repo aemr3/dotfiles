@@ -29,6 +29,13 @@ return {
         "codelldb",
         "goimports",
         "actionlint",
+        "tailwindcss-language-server",
+        "json-lsp",
+        "omnisharp",
+        "ruby-lsp",
+        "terraform-ls",
+        "gopls",
+        "rust-analyzer",
       },
     },
     keys = { { "<leader>cm", "<cmd>Mason<cr>", desc = "Mason" } },
@@ -85,71 +92,67 @@ return {
         },
       },
     },
-    opts = function()
-      local lspconfig = require("lspconfig")
+    init = function()
       local icons = require("config.icons")
-      for type, icon in pairs(icons.diagnostics) do
-        local hl = "DiagnosticSign" .. type
-        vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
-      end
-      return {
-        ensure_installed = {
-          "eslint",
-          "ts_ls",
-          "tailwindcss",
-          "pyright",
-          "lua_ls",
-          "jsonls",
-          "omnisharp",
-          "ruby_lsp",
-          "ruff",
-          "terraformls",
-          "gopls",
-          "rust_analyzer",
+      local x = vim.diagnostic.severity
+      local i = icons.diagnostics
+      vim.diagnostic.config({
+        virtual_text = { prefix = i.VirtualText },
+        signs = {
+          text = {
+            [x.ERROR] = i.Error,
+            [x.WARN] = i.Warn,
+            [x.INFO] = i.Info,
+            [x.HINT] = i.Hint,
+          },
         },
-        automatic_installation = true,
-        handlers = {
-          function(server_name)
-            require("lspconfig")[server_name].setup({})
-          end,
-          ["rust_analyzer"] = function()
-            -- setup handled by rustaceanvim
-          end,
-          ["lua_ls"] = function()
-            lspconfig.lua_ls.setup({
-              settings = {
-                Lua = {
-                  diagnostics = {
-                    globals = { "vim", "jit" },
-                  },
-                  workspace = {
-                    library = {
-                      [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-                      [vim.fn.stdpath("config") .. "/lua"] = true,
-                    },
-                  },
-                },
+        underline = true,
+        float = { border = "single" },
+      })
+
+      vim.lsp.enable("eslint")
+      vim.lsp.enable("ts_ls")
+      vim.lsp.enable("tailwindcss")
+      vim.lsp.enable("pyright")
+      vim.lsp.enable("lua_ls")
+      vim.lsp.enable("jsonls")
+      vim.lsp.enable("omnisharp")
+      vim.lsp.enable("ruby_lsp")
+      vim.lsp.enable("ruff")
+      vim.lsp.enable("terraformls")
+      vim.lsp.enable("gopls")
+      vim.lsp.enable("rust_analyzer")
+
+      vim.lsp.config("lua_ls", {
+        settings = {
+          Lua = {
+            diagnostics = {
+              globals = { "vim", "jit" },
+            },
+            workspace = {
+              library = {
+                [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+                [vim.fn.stdpath("config") .. "/lua"] = true,
               },
-            })
-          end,
-          ["pyright"] = function()
-            lspconfig.pyright.setup({
-              capabilities = (function()
-                local capabilities = vim.lsp.protocol.make_client_capabilities()
-                capabilities.textDocument.publishDiagnostics.tagSupport.valueSet = { 2 }
-                return capabilities
-              end)(),
-              settings = {
-                python = {
-                  analysis = {
-                    typeCheckingMode = "off",
-                  },
-                },
-              },
-            })
-          end,
+            },
+          },
         },
-      }
+      })
+
+      vim.lsp.config("pyright", {
+        capabilities = (function()
+          local capabilities = vim.lsp.protocol.make_client_capabilities()
+          capabilities.textDocument.publishDiagnostics.tagSupport.valueSet = { 2 }
+          return capabilities
+        end)(),
+        settings = {
+          python = {
+            analysis = {
+              typeCheckingMode = "off",
+            },
+          },
+        },
+      })
     end,
   },
   {
@@ -178,7 +181,7 @@ return {
         tf = { "terraform_fmt" },
         python = function(bufnr)
           if require("conform").get_formatter_info("ruff_format", bufnr).available then
-            return { "ruff_fix", "ruff_format" }
+            return { "ruff_fix", "ruff_format", "ruff_organize_imports" }
           else
             return { "isort", "black" }
           end

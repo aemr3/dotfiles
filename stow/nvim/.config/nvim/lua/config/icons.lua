@@ -14,6 +14,7 @@ return {
     Warn = " ",
     Hint = " ",
     Info = " ",
+    VirtualText = "",
   },
   git = {
     added = " ",

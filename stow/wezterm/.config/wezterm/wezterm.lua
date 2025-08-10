@@ -20,7 +20,7 @@ return {
 	initial_rows = 48,
 	font_size = 12.0,
 	font = wezterm.font_with_fallback({
-		{ family = "Fira Code", weight = mini and "Bold" or "DemiBold" },
+		{ family = "Fira Code", weight = mini and "Bold" or "Medium" },
 		{ family = "Monaspace Neon", weight = mini and "Bold" or "DemiBold" },
 		{ family = "Monaspace Argon", weight = mini and "Bold" or "DemiBold" },
 		{ family = "Monaspace Xenon", weight = mini and "Bold" or "DemiBold" },

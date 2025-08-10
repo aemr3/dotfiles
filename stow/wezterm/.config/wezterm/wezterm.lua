@@ -7,6 +7,7 @@ local k = require("utils/keys")
 local mini = h.get_hw_id():find("^Macmini") ~= nil
 
 return {
+	harfbuzz_features = { "zero", "ss01", "cv05" },
 	set_environment_variables = {
 		PATH = "/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:" .. os.getenv("PATH"),
 	},
@@ -19,12 +20,13 @@ return {
 	initial_rows = 48,
 	font_size = 12.0,
 	font = wezterm.font_with_fallback({
-		{ family = "JetBrains Mono", weight = mini and "Bold" or "DemiBold" },
+		{ family = "Fira Code Retina", weight = mini and "Bold" or "DemiBold" },
 		{ family = "Monaspace Neon", weight = mini and "Bold" or "DemiBold" },
 		{ family = "Monaspace Argon", weight = mini and "Bold" or "DemiBold" },
 		{ family = "Monaspace Xenon", weight = mini and "Bold" or "DemiBold" },
 		{ family = "Monaspace Radon", weight = mini and "Bold" or "DemiBold" },
 		{ family = "Monaspace Krypton", weight = mini and "Bold" or "DemiBold" },
+		{ family = "JetBrains Mono", weight = mini and "Bold" or "DemiBold" },
 	}),
 	window_decorations = "NONE",
 	audible_bell = "Disabled",

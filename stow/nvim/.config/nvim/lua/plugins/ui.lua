@@ -334,6 +334,8 @@ return {
         "~/Projects/*/*",
         "~/.config/*",
         "~/app/*",
+        "~/.dotfiles",
+        "~/.private",
       },
       last_session_on_startup = false,
       picker = {

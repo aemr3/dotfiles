@@ -11,4 +11,7 @@ return {
   keys = {
     { "<leader>vs", "<cmd>VenvSelect<cr>" },
   },
+  config = function()
+    require("venv-selector").setup({})
+  end,
 }

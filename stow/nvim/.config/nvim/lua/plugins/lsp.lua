@@ -36,6 +36,7 @@ return {
         "terraform-ls",
         "gopls",
         "rust-analyzer",
+        "copilot-language-server",
       },
     },
     keys = { { "<leader>cm", "<cmd>Mason<cr>", desc = "Mason" } },
@@ -122,6 +123,7 @@ return {
       vim.lsp.enable("terraformls")
       vim.lsp.enable("gopls")
       vim.lsp.enable("rust_analyzer")
+      vim.lsp.enable("copilot")
 
       vim.lsp.config("lua_ls", {
         settings = {

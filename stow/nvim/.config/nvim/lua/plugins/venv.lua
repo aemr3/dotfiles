@@ -6,8 +6,7 @@ return {
     "mfussenegger/nvim-dap-python",
     { "nvim-telescope/telescope.nvim", branch = "0.1.x", dependencies = { "nvim-lua/plenary.nvim" } },
   },
-  lazy = false,
-  branch = "regexp",
+  ft = "python",
   keys = {
     { "<leader>vs", "<cmd>VenvSelect<cr>" },
   },

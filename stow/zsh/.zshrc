@@ -145,6 +145,7 @@ if [ -d ~/Library ]; then
   export ANDROID_HOME=~/Library/Android/sdk
   export ANDROID_SDK_ROOT=~/Library/Android/sdk
 fi
+export OPENCODE_DISABLE_DEFAULT_PLUGINS=1
 
 # Key bindings
 bindkey -e

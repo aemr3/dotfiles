@@ -2,193 +2,73 @@ local helpers = require("config.helpers")
 
 return {
   {
-    "nvim-telescope/telescope.nvim",
-    cmd = "Telescope",
-    version = false,
-    dependencies = {
-      {
-        "nvim-telescope/telescope-fzf-native.nvim",
-        build = "make",
-        enabled = vim.fn.executable("make") == 1,
-        config = function()
-          helpers.lazy.on_load("telescope.nvim", function()
-            require("telescope").load_extension("fzf")
-          end)
-        end,
-      },
-      { "nvim-telescope/telescope-live-grep-args.nvim" },
-    },
+    "ibhagwan/fzf-lua",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    opts = {},
     keys = {
-      {
-        "<leader>,",
-        "<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>",
-        desc = "Switch Buffer",
-      },
-      { "<leader>:", "<cmd>Telescope command_history<cr>", desc = "Command History" },
-      { "<leader>fg", "<cmd>Telescope git_files<cr>", desc = "Git Files" },
-      -- find
-      { "<leader>fb", "<cmd>Telescope buffers sort_mru=true sort_lastused=true<cr>", desc = "Buffers" },
-      { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find Files" },
-      { "<leader>fr", "<cmd>Telescope oldfiles<cr>", desc = "Recent" },
-      -- git
-      { "<leader>fc", "<cmd>Telescope git_commits<CR>", desc = "commits" },
-      -- search
-      {
-        "<leader><space>",
-        function()
-          require("telescope").extensions.live_grep_args.live_grep_args({
-            additional_args = {
-              "-L",
-              "--hidden",
-              "--glob",
-              "!.git",
-              "--glob",
-              "!node_modules",
-            },
-          })
-        end,
-        desc = "Grep Files",
-      },
-      { '<leader>s"', "<cmd>Telescope registers<cr>", desc = "Registers" },
-      { "<leader>sa", "<cmd>Telescope autocommands<cr>", desc = "Auto Commands" },
-      { "<leader>sb", "<cmd>Telescope current_buffer_fuzzy_find<cr>", desc = "Buffer" },
-      { "<leader>sc", "<cmd>Telescope command_history<cr>", desc = "Command History" },
-      { "<leader>sC", "<cmd>Telescope commands<cr>", desc = "Commands" },
-      { "<leader>sd", "<cmd>Telescope diagnostics bufnr=0<cr>", desc = "Document diagnostics" },
-      { "<leader>sD", "<cmd>Telescope diagnostics<cr>", desc = "Workspace diagnostics" },
-      { "<leader>sh", "<cmd>Telescope help_tags<cr>", desc = "Help Pages" },
-      { "<leader>sH", "<cmd>Telescope highlights<cr>", desc = "Search Highlight Groups" },
-      { "<leader>sk", "<cmd>Telescope keymaps<cr>", desc = "Key Maps" },
-      { "<leader>sM", "<cmd>Telescope man_pages<cr>", desc = "Man Pages" },
-      { "<leader>sm", "<cmd>Telescope marks<cr>", desc = "Jump to Mark" },
-      { "<leader>so", "<cmd>Telescope vim_options<cr>", desc = "Options" },
-      { "<leader>sR", "<cmd>Telescope resume<cr>", desc = "Resume" },
-      { "<leader>sw", "<cmd>Telescope grep_string<cr>", desc = "Grep String / Selection" },
+      { "<leader>p", "<cmd>FzfLua global<cr>", desc = "Global Search" },
+      { "<leader>:", "<cmd>FzfLua command_history<cr>", desc = "Command History" },
+      { "<leader>,", "<cmd>FzfLua buffers<cr>", desc = "Switch Buffer" },
+      { "<leader>fg", "<cmd>FzfLua git_files<cr>", desc = "Git Files" },
+      { "<leader>fb", "<cmd>FzfLua buffers<cr>", desc = "Buffers" },
+      { "<leader>ff", "<cmd>FzfLua files<cr>", desc = "Find Files" },
+      { "<leader>fr", "<cmd>FzfLua oldfiles<cr>", desc = "Recent" },
+      { "<leader>fc", "<cmd>FzfLua git_commits<CR>", desc = "Git Commits" },
+      { "<leader>gs", "<cmd>FzfLua git_status<CR>", desc = "Git Status" },
+      { "<leader><space>", "<cmd>FzfLua live_grep<cr>", desc = "Grep Files" },
+      { '<leader>s"', "<cmd>FzfLua registers<cr>", desc = "Registers" },
+      { "<leader>sa", "<cmd>FzfLua autocmds<cr>", desc = "Auto Commands" },
+      { "<leader>sb", "<cmd>FzfLua lgrep_curbuf<cr>", desc = "Buffer" },
+      { "<leader>sc", "<cmd>FzfLua command_history<cr>", desc = "Command History" },
+      { "<leader>sC", "<cmd>FzfLua commands<cr>", desc = "Commands" },
+      { "<leader>sd", "<cmd>FzfLua diagnostics_document<cr>", desc = "Document diagnostics" },
+      { "<leader>sD", "<cmd>FzfLua diagnostics_workspace<cr>", desc = "Workspace diagnostics" },
+      { "<leader>sh", "<cmd>FzfLua helptags<cr>", desc = "Help Pages" },
+      { "<leader>sH", "<cmd>FzfLua highlights<cr>", desc = "Search Highlight Groups" },
+      { "<leader>sk", "<cmd>FzfLua keymaps<cr>", desc = "Key Maps" },
+      { "<leader>sM", "<cmd>FzfLua manpages<cr>", desc = "Manpages" },
+      { "<leader>sm", "<cmd>FzfLua marks<cr>", desc = "Jump to Mark" },
+      { "<leader>so", "<cmd>FzfLua vim_options<cr>", desc = "Options" },
+      { "<leader>sR", "<cmd>FzfLua resume<cr>", desc = "Resume" },
+      { "<leader>sw", "<cmd>FzfLua grep_cword<cr>", desc = "Grep String / Selection" },
       {
         "<leader>ssw",
         function()
-          require("telescope.builtin").grep_string({ search = vim.fn.expand("<cword>") })
+          require("fzf-lua").grep_cword({ search = vim.fn.expand("<cword>") })
         end,
         desc = "Grep Word Under Cursor",
       },
       {
         "<leader>ssW",
         function()
-          require("telescope.builtin").grep_string({ search = vim.fn.expand("<cWORD>") })
+          require("fzf-lua").grep_cword({ search = vim.fn.expand("<cWORD>") })
         end,
         desc = "Grep Whole Word Under Cursor",
       },
-      { "<leader>sls", "<cmd>Telescope lsp_workspace_symbols<cr>", desc = "Goto Symbol" },
-      { "<leader>slS", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", desc = "Goto Symbol (Workspace)" },
+      { "<leader>sls", "<cmd>FzfLua lsp_workspace_symbols<cr>", desc = "Goto Symbol" },
+      { "<leader>slS", "<cmd>FzfLua lsp_live_workspace_symbols<cr>", desc = "Goto Symbol (Workspace)" },
       {
         "<leader>/",
         function()
-          require("telescope.builtin").current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
-            winblend = 10,
-            previewer = false,
-          }))
+          require("fzf-lua").lgrep_curbuf({ fzf_opts = { ["--prompt"] = "[/] " }, previewer = false })
         end,
         desc = "[/] Fuzzily search in current buffer",
       },
       {
         "<leader>s/",
         function()
-          require("telescope.builtin").live_grep({
-            grep_open_files = true,
-            prompt_title = "Live Grep in Open Files",
-          })
+          require("fzf-lua").live_grep({ grep_open_files = true, prompt_title = "Live Grep in Open Files" })
         end,
         desc = "Search [/] in Open Files",
       },
       {
         "<leader>sn",
         function()
-          require("telescope.builtin").find_files({ cwd = vim.fn.stdpath("config") })
+          require("fzf-lua").files({ cwd = vim.fn.stdpath("config") })
         end,
         desc = "Search Neovim Files",
       },
     },
-    opts = function()
-      local actions = require("telescope.actions")
-
-      local open_with_trouble = function(...)
-        return require("trouble.providers.telescope").open_with_trouble(...)
-      end
-      local open_selected_with_trouble = function(...)
-        return require("trouble.providers.telescope").open_selected_with_trouble(...)
-      end
-      local find_files_no_ignore = function()
-        local action_state = require("telescope.actions.state")
-        local line = action_state.get_current_line()
-        require("telescope.builtin")["find_files"]({ no_ignore = true, default_text = line })()
-      end
-      local find_files_with_hidden = function()
-        local action_state = require("telescope.actions.state")
-        local line = action_state.get_current_line()
-        require("telescope.builtin")["find_files"]({ hidden = true, default_text = line })()
-      end
-
-      return {
-        defaults = {
-          prompt_prefix = " ",
-          selection_caret = " ",
-          -- open files in the first window that is an actual file.
-          -- use the current window if no other window is available.
-          get_selection_window = function()
-            local wins = vim.api.nvim_list_wins()
-            table.insert(wins, 1, vim.api.nvim_get_current_win())
-            for _, win in ipairs(wins) do
-              local buf = vim.api.nvim_win_get_buf(win)
-              if vim.bo[buf].buftype == "" then
-                return win
-              end
-            end
-            return 0
-          end,
-          mappings = {
-            i = {
-              ["<c-t>"] = open_with_trouble,
-              ["<a-t>"] = open_selected_with_trouble,
-              ["<a-i>"] = find_files_no_ignore,
-              ["<a-h>"] = find_files_with_hidden,
-              ["<C-Down>"] = actions.cycle_history_next,
-              ["<C-Up>"] = actions.cycle_history_prev,
-              ["<C-f>"] = actions.preview_scrolling_down,
-              ["<C-b>"] = actions.preview_scrolling_up,
-            },
-            n = {
-              ["q"] = actions.close,
-            },
-          },
-        },
-      }
-    end,
-  },
-  {
-    "debugloop/telescope-undo.nvim",
-    dependencies = {
-      {
-        "nvim-telescope/telescope.nvim",
-        dependencies = { "nvim-lua/plenary.nvim" },
-      },
-    },
-    keys = {
-      {
-        "<leader>su",
-        "<cmd>Telescope undo<cr>",
-        desc = "undo history",
-      },
-    },
-    opts = {
-      extensions = {
-        undo = {},
-      },
-    },
-    config = function(_, opts)
-      require("telescope").setup(opts)
-      require("telescope").load_extension("undo")
-      require("telescope").load_extension("live_grep_args")
-    end,
   },
   { "mg979/vim-visual-multi" },
   { "HiPhish/rainbow-delimiters.nvim" },
@@ -298,36 +178,6 @@ return {
       { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
       { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
     },
-  },
-  {
-    "nvim-telescope/telescope.nvim",
-    optional = true,
-    opts = function(_, opts)
-      if not helpers.lazy.has("flash.nvim") then
-        return
-      end
-      local function flash(prompt_bufnr)
-        require("flash").jump({
-          pattern = "^",
-          label = { after = { 0, 0 } },
-          search = {
-            mode = "search",
-            exclude = {
-              function(win)
-                return vim.bo[vim.api.nvim_win_get_buf(win)].filetype ~= "TelescopeResults"
-              end,
-            },
-          },
-          action = function(match)
-            local picker = require("telescope.actions.state").get_current_picker(prompt_bufnr)
-            picker:set_selection(match.pos[1] - 1)
-          end,
-        })
-      end
-      opts.defaults = vim.tbl_deep_extend("force", opts.defaults or {}, {
-        mappings = { n = { s = flash }, i = { ["<c-s>"] = flash } },
-      })
-    end,
   },
   {
     "lewis6991/gitsigns.nvim",
@@ -490,21 +340,6 @@ return {
     },
   },
   {
-    "folke/todo-comments.nvim",
-    cmd = { "TodoTrouble", "TodoTelescope" },
-    event = "BufEnter",
-    config = true,
-    -- stylua: ignore
-    keys = {
-      { "]t", function() require("todo-comments").jump_next() end, desc = "Next todo comment" },
-      { "[t", function() require("todo-comments").jump_prev() end, desc = "Previous todo comment" },
-      { "<leader>xt", "<cmd>TodoTrouble<cr>", desc = "Todo (Trouble)" },
-      { "<leader>xT", "<cmd>TodoTrouble keywords=TODO,FIX,FIXME<cr>", desc = "Todo/Fix/Fixme (Trouble)" },
-      { "<leader>st", "<cmd>TodoTelescope<cr>", desc = "Todo" },
-      { "<leader>sT", "<cmd>TodoTelescope keywords=TODO,FIX,FIXME<cr>", desc = "Todo/Fix/Fixme" },
-    },
-  },
-  {
     "echasnovski/mini.indentscope",
     version = false,
     event = "BufEnter",
@@ -531,6 +366,7 @@ return {
           "notify",
           "toggleterm",
           "lazyterm",
+          "sidekick_terminal",
         },
         callback = function()
           vim.b.miniindentscope_disable = true

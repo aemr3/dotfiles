@@ -14,14 +14,14 @@ autocmd("LspAttach", {
       opts["desc"] = "LSP: " .. opts["desc"]
       vim.keymap.set(mode, lhs, rhs, opts)
     end
-    local telescope_builtin = require("telescope.builtin")
-    map("n", "gd", telescope_builtin.lsp_definitions, { desc = "[G]oto [D]efinition" })
+    local fzf_builtin = require("fzf-lua")
+    map("n", "gd", fzf_builtin.lsp_definitions, { desc = "[G]oto [D]efinition" })
     map("n", "gD", vim.lsp.buf.declaration, { desc = "[G]oto [D]eclaration" })
-    map("n", "gr", telescope_builtin.lsp_references, { desc = "[G]oto [R]eferences" })
-    map("n", "gI", telescope_builtin.lsp_implementations, { desc = "[G]oto [I]mplementation" })
-    map("n", "<leader>D", telescope_builtin.lsp_type_definitions, { desc = "Type [D]efinition" })
-    map("n", "<leader>ds", telescope_builtin.lsp_document_symbols, { desc = "[D]ocument [S]ymbols" })
-    map("n", "<leader>ws", telescope_builtin.lsp_dynamic_workspace_symbols, { desc = "[W]orkspace [S]ymbols" })
+    map("n", "gr", fzf_builtin.lsp_references, { desc = "[G]oto [R]eferences" })
+    map("n", "gI", fzf_builtin.lsp_implementations, { desc = "[G]oto [I]mplementation" })
+    map("n", "<leader>D", fzf_builtin.lsp_typedefs, { desc = "Type [D]efinition" })
+    map("n", "<leader>ds", fzf_builtin.lsp_document_symbols, { desc = "[D]ocument [S]ymbols" })
+    map("n", "<leader>ws", fzf_builtin.lsp_live_workspace_symbols, { desc = "[W]orkspace [S]ymbols" })
     map("n", "<leader>rn", vim.lsp.buf.rename, { desc = "[R]e[n]ame Symbol" })
     map("n", "K", vim.lsp.buf.hover, { desc = "Show Documentation" })
     map("n", "gK", vim.lsp.buf.signature_help, { desc = "Signature Help" })
@@ -29,19 +29,6 @@ autocmd("LspAttach", {
     map("n", "<leader>cf", function()
       require("conform").format({ lsp_fallback = true })
     end, { desc = "[C]ode [F]ormat" })
-
-    local client = vim.lsp.get_client_by_id(ev.data.client_id)
-    if client and client.server_capabilities.documentHighlightProvider then
-      vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-        buffer = ev.buf,
-        callback = vim.lsp.buf.document_highlight,
-      })
-
-      vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
-        buffer = ev.buf,
-        callback = vim.lsp.buf.clear_references,
-      })
-    end
   end,
 })
 
@@ -58,3 +45,5 @@ autocmd("BufWritePost", {
   pattern = "*.prisma",
   command = "!npx prisma format",
 })
+
+

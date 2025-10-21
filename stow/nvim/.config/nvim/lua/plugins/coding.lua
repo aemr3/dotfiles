@@ -100,27 +100,19 @@ return {
     "folke/sidekick.nvim",
     dependencies = { "folke/snacks.nvim" },
     opts = {
+      nes = { enabled = false },
       cli = {
         mux = {
           backend = "tmux",
-          enabled = true,
-          create = "split",
+          enabled = false,
+          create = "terminal",
         },
+        picker = "telescope",
       },
     },
     keys = {
       {
-        "<tab>",
-        function()
-          if not require("sidekick").nes_jump_or_apply() then
-            return "<Tab>"
-          end
-        end,
-        expr = true,
-        desc = "Goto/Apply Next Edit Suggestion",
-      },
-      {
-        "<c-.>",
+        "<a-a>",
         function()
           require("sidekick.cli").toggle()
         end,
@@ -140,6 +132,13 @@ return {
           require("sidekick.cli").select({ filter = { installed = true } })
         end,
         desc = "Select CLI",
+      },
+      {
+        "<leader>ad",
+        function()
+          require("sidekick.cli").close()
+        end,
+        desc = "Detach a CLI Session",
       },
       {
         "<leader>at",

@@ -73,30 +73,6 @@ return {
           end,
           desc = "Dismiss All",
         },
-        {
-          "<c-f>",
-          function()
-            if not require("noice.lsp").scroll(4) then
-              return "<c-f>"
-            end
-          end,
-          silent = true,
-          expr = true,
-          desc = "Scroll forward",
-          mode = { "i", "n", "s" },
-        },
-        {
-          "<c-b>",
-          function()
-            if not require("noice.lsp").scroll(-4) then
-              return "<c-b>"
-            end
-          end,
-          silent = true,
-          expr = true,
-          desc = "Scroll backward",
-          mode = { "i", "n", "s" },
-        },
       },
     },
     dependencies = {
@@ -150,54 +126,57 @@ return {
     end,
   },
   {
-    "akinsho/bufferline.nvim",
-    event = "VeryLazy",
-    keys = {
-      { "<leader>bp", "<Cmd>BufferLineTogglePin<CR>", desc = "Toggle pin" },
-      { "<leader>bP", "<Cmd>BufferLineGroupClose ungrouped<CR>", desc = "Delete non-pinned buffers" },
-      { "<leader>bo", "<Cmd>BufferLineCloseOthers<CR>", desc = "Delete other buffers" },
-      { "<leader>br", "<Cmd>BufferLineCloseRight<CR>", desc = "Delete buffers to the right" },
-      { "<leader>bl", "<Cmd>BufferLineCloseLeft<CR>", desc = "Delete buffers to the left" },
-      { "<S-h>", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev buffer" },
-      { "<S-l>", "<cmd>BufferLineCycleNext<cr>", desc = "Next buffer" },
-      { "[b", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev buffer" },
-      { "]b", "<cmd>BufferLineCycleNext<cr>", desc = "Next buffer" },
+    "romgrk/barbar.nvim",
+    dependencies = {
+      "lewis6991/gitsigns.nvim",
+      "nvim-tree/nvim-web-devicons",
     },
+    init = function()
+      vim.g.barbar_auto_setup = false
+    end,
+    event = { "BufReadPost", "BufNewFile" },
     opts = {
-      options = {
-        -- stylua: ignore
-        close_command = function(n) require("mini.bufremove").delete(n, false) end,
-        -- stylua: ignore
-        right_mouse_command = function(n) require("mini.bufremove").delete(n, false) end,
-        diagnostics = "nvim_lsp",
-        always_show_bufferline = false,
-        separator_style = "thin",
-        diagnostics_indicator = function(_, _, diag)
-          local ret = (diag.error and icons.diagnostics.Error .. diag.error .. " " or "")
-            .. (diag.warning and icons.diagnostics.Warn .. diag.warning or "")
-          return vim.trim(ret)
-        end,
-        offsets = {
-          {
-            filetype = "neo-tree",
-            text = " ",
-            highlight = "Directory",
-            text_align = "left",
-          },
+      animation = true,
+      auto_hide = 1,
+      clickable = true,
+      focus_on_close = "left",
+      highlight_visible = true,
+      maximum_padding = 3,
+      minimum_padding = 2,
+      maximum_length = 30,
+      icons = {
+        buffer_index = false,
+        buffer_number = false,
+        button = " ",
+        diagnostics = {
+          [vim.diagnostic.severity.ERROR] = { enabled = true, icon = " " },
+          [vim.diagnostic.severity.WARN] = { enabled = true, icon = " " },
+          [vim.diagnostic.severity.INFO] = { enabled = false },
+          [vim.diagnostic.severity.HINT] = { enabled = false },
         },
+        gitsigns = {
+          added = { enabled = true, icon = " " },
+          changed = { enabled = true, icon = " " },
+          deleted = { enabled = true, icon = " " },
+        },
+        filetype = { enabled = true, custom_colors = false },
+        separator = { left = " ▎", right = "" },
+        separator_at_end = false,
+        modified = { button = "●" },
+        pinned = { button = "", filename = true },
+        preset = "default",
+      },
+      sidebar_filetypes = {
+        ["neo-tree"] = { event = "BufWipeout" },
       },
     },
-    config = function(_, opts)
-      require("bufferline").setup(opts)
-      -- Fix bufferline when restoring a session
-      vim.api.nvim_create_autocmd("BufAdd", {
-        callback = function()
-          vim.schedule(function()
-            pcall(nvim_bufferline) -- luacheck: ignore
-          end)
-        end,
-      })
-    end,
+    keys = {
+      { "<leader>bp", "<Cmd>BufferPin<CR>", desc = "Toggle pin" },
+      { "<leader>bP", "<Cmd>BufferCloseAllButPinned<CR>", desc = "Delete non-pinned buffers" },
+      { "<leader>bo", "<Cmd>BufferCloseAllButCurrent<CR>", desc = "Delete other buffers" },
+      { "<leader>br", "<Cmd>BufferCloseBuffersRight<CR>", desc = "Delete buffers to the right" },
+      { "<leader>bl", "<Cmd>BufferCloseBuffersLeft<CR>", desc = "Delete buffers to the left" },
+    },
   },
   {
     "nvim-lualine/lualine.nvim",
@@ -357,7 +336,7 @@ return {
         type = "telescope",
         preview = {
           enabled = false,
-          git_status = false,
+          git_status = true,
           git_fetch = false,
           show_hidden = true,
         },

@@ -10,7 +10,7 @@ return {
         "luacheck",
         "shfmt",
         "mypy",
-        "pyright",
+        "basedpyright",
         "dockerfile-language-server",
         "docker-compose-language-service",
         "typescript-language-server",
@@ -36,7 +36,6 @@ return {
         "terraform-ls",
         "gopls",
         "rust-analyzer",
-        "copilot-language-server",
       },
     },
     keys = { { "<leader>cm", "<cmd>Mason<cr>", desc = "Mason" } },
@@ -114,7 +113,7 @@ return {
       vim.lsp.enable("eslint")
       vim.lsp.enable("ts_ls")
       vim.lsp.enable("tailwindcss")
-      vim.lsp.enable("pyright")
+      vim.lsp.enable("basedpyright")
       vim.lsp.enable("lua_ls")
       vim.lsp.enable("jsonls")
       vim.lsp.enable("omnisharp")
@@ -123,7 +122,6 @@ return {
       vim.lsp.enable("terraformls")
       vim.lsp.enable("gopls")
       vim.lsp.enable("rust_analyzer")
-      vim.lsp.enable("copilot")
 
       vim.lsp.config("lua_ls", {
         settings = {
@@ -136,21 +134,6 @@ return {
                 [vim.fn.expand("$VIMRUNTIME/lua")] = true,
                 [vim.fn.stdpath("config") .. "/lua"] = true,
               },
-            },
-          },
-        },
-      })
-
-      vim.lsp.config("pyright", {
-        capabilities = (function()
-          local capabilities = vim.lsp.protocol.make_client_capabilities()
-          capabilities.textDocument.publishDiagnostics.tagSupport.valueSet = { 2 }
-          return capabilities
-        end)(),
-        settings = {
-          python = {
-            analysis = {
-              typeCheckingMode = "off",
             },
           },
         },

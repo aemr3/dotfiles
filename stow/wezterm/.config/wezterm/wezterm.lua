@@ -73,7 +73,8 @@ return {
 			act.Multiple({ act.SendKey({ key = " " }), act.SendKey({ key = "d" }), act.SendKey({ key = "x" }) })
 		),
 		k.cmd_key("s", act.SendKey({ mods = "CTRL", key = "s" })),
-		k.cmd_key("e", act.Multiple({ act.SendKey({ key = " " }), act.SendKey({ key = "e" }) })),
+		k.cmd_key("b", act.SendKey({ mods = "ALT", key = "b" })),
+		k.cmd_key("a", act.SendKey({ mods = "ALT", key = "a" })),
 		k.cmd_key(
 			"x",
 			act.Multiple({ act.SendKey({ key = " " }), act.SendKey({ key = "b" }), act.SendKey({ key = "d" }) })
@@ -98,5 +99,6 @@ return {
 				end),
 			})
 		),
+		k.cmd_key("p", act.Multiple({ act.SendKey({ key = " " }), act.SendKey({ key = "p" }) })),
 	},
 }

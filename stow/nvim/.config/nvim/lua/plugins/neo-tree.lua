@@ -61,6 +61,7 @@ return {
       },
       { "<leader>fe", "<cmd>Neotree toggle<cr>", desc = "Browse Files" },
       { "<leader>e", "<leader>fe", desc = "Browse Files", remap = true },
+      { "<a-b>", "<cmd>Neotree toggle<cr>", desc = "Browse Files", mode = { "n", "t", "i", "x" }, remap = true },
     },
     dependencies = {
       "nvim-lua/plenary.nvim",

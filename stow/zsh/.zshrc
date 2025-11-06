@@ -140,6 +140,7 @@ export EDITOR=nvim
 export PATH=$HOME/.local/bin:$PATH
 export PATH=${KREW_ROOT:-$HOME/.krew}/bin:$PATH
 export PATH=$PATH:$HOME/.docker/bin
+export GOBIN=$HOME/.local/bin
 if [ -d ~/Library ]; then
   export PATH=$PATH:~/Library/Android/sdk/platform-tools
   export ANDROID_HOME=~/Library/Android/sdk

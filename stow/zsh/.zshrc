@@ -147,6 +147,7 @@ if [ -d ~/Library ]; then
   export ANDROID_SDK_ROOT=~/Library/Android/sdk
 fi
 export OPENCODE_DISABLE_DEFAULT_PLUGINS=1
+export NODE_OPTIONS="--experimental-sqlite"
 
 # Key bindings
 bindkey -e

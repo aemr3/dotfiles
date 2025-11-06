@@ -11,6 +11,12 @@ return {
     { "<leader>vs", "<cmd>VenvSelect<cr>" },
   },
   config = function()
+    local original_notify = vim.notify
     require("venv-selector").setup({})
+    vim.schedule(function()
+      if type(vim.notify) ~= "function" and type(original_notify) == "function" then
+        vim.notify = original_notify
+      end
+    end)
   end,
 }

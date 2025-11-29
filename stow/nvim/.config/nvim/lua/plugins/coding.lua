@@ -114,7 +114,7 @@ return {
       {
         "<a-a>",
         function()
-          require("sidekick.cli").toggle({ name = "opencode", focus = true })
+          require("sidekick.cli").toggle()
         end,
         desc = "Sidekick Toggle",
         mode = { "n", "t", "i", "x" },
@@ -122,9 +122,9 @@ return {
       {
         "<leader>aa",
         function()
-          require("sidekick.cli").toggle({ name = "opencode", focus = true })
+          require("sidekick.cli").toggle()
         end,
-        desc = "Sidekick Toggle",
+        desc = "Sidekick Toggle CLI",
       },
       {
         "<leader>as",
@@ -170,6 +170,13 @@ return {
         end,
         mode = { "n", "x" },
         desc = "Sidekick Select Prompt",
+      },
+      {
+        "<leader>ac",
+        function()
+          require("sidekick.cli").toggle({ name = "opencode", focus = true })
+        end,
+        desc = "Sidekick Toggle OpenCode",
       },
     },
   },

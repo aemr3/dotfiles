@@ -138,6 +138,7 @@ export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export EDITOR=nvim
 export PATH=$HOME/.local/bin:$PATH
+export PATH=$HOME/.bun/bin:$PATH
 export PATH=${KREW_ROOT:-$HOME/.krew}/bin:$PATH
 export PATH=$PATH:$HOME/.docker/bin
 export GOBIN=$HOME/.local/bin

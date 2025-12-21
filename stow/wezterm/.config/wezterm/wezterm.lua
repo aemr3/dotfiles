@@ -23,7 +23,7 @@ return {
 		{ family = "FiraCode Nerd Font", weight = mini and "Bold" or "Medium" },
 		{ family = "JetBrainsMono Nerd Font", weight = mini and "Bold" or "DemiBold" },
 	}),
-	window_decorations = "NONE",
+	native_macos_fullscreen_mode = true,
 	audible_bell = "Disabled",
 	visual_bell = {
 		fade_in_function = "EaseIn",
@@ -38,7 +38,7 @@ return {
 		top = 10,
 		bottom = 10,
 	} or {
-		top = 40,
+		top = 0,
 		bottom = 0,
 	},
 	mouse_bindings = {

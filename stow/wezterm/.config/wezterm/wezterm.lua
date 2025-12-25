@@ -100,5 +100,6 @@ return {
 			})
 		),
 		k.cmd_key("p", act.Multiple({ act.SendKey({ key = " " }), act.SendKey({ key = "p" }) })),
+		k.key_table("SHIFT", "Enter", act.SendKey({ key = "\x0a" })),
 	},
 }

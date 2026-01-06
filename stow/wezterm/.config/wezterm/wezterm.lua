@@ -24,6 +24,7 @@ return {
 		{ family = "JetBrainsMono Nerd Font", weight = mini and "Bold" or "DemiBold" },
 	}),
 	native_macos_fullscreen_mode = true,
+	window_decorations = "RESIZE",
 	audible_bell = "Disabled",
 	visual_bell = {
 		fade_in_function = "EaseIn",

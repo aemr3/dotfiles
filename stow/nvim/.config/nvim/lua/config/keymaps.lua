@@ -1,7 +1,8 @@
 local map = vim.keymap.set
 
 -- Better paste
-map("x", "p", [["_dP]], { remap = false })
+map("x", "p", [["_dp]], { remap = false })
+map("x", "P", [["_dP]], { remap = false })
 
 -- Better up/down
 map({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })

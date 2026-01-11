@@ -1,0 +1,60 @@
+theme = "orng-dark"
+font-size = 13
+font-family = "TX-02"
+
+window-padding-balance = true
+window-padding-x = 0
+window-padding-y = 0
+window-width = 350
+window-height = 472
+font-thicken = true
+
+macos-option-as-alt = true
+macos-titlebar-style = hidden
+clipboard-paste-protection = true
+copy-on-select = true
+mouse-hide-while-typing = true
+
+shell-integration-features = true
+
+link-url = true
+
+auto-update = download
+auto-update-channel = tip
+
+keybind = shift+enter=text:\n
+keybind = cmd+h=text:§h
+keybind = cmd+j=text:§j
+keybind = cmd+k=text:§k
+keybind = cmd+l=text:§l
+keybind = cmd+digit_1=text:§1
+keybind = cmd+digit_2=text:§2
+keybind = cmd+digit_3=text:§3
+keybind = cmd+digit_4=text:§4
+keybind = cmd+digit_5=text:§5
+keybind = cmd+digit_6=text:§6
+keybind = cmd+digit_7=text:§7
+keybind = cmd+digit_8=text:§8
+keybind = cmd+digit_9=text:§9
+keybind = cmd+t=text:§c
+keybind = cmd+w=text:§x
+keybind = cmd+d=text:§-
+keybind = cmd+shift+d=text:§|
+keybind = cmd+o=text:§u
+keybind = cmd+m=text:§m
+keybind = cmd+shift+t=text: dx
+keybind = cmd+s=text:\x13
+keybind = cmd+b=esc:b
+keybind = cmd+a=esc:a
+keybind = cmd+x=text: bd
+keybind = cmd+p=text: p
+keybind = cmd+up=text:\x0a
+keybind = cmd+down=text:\x0b
+keybind = cmd+left=text:\x08
+keybind = cmd+right=text:\x0c
+keybind = alt+left=csi:1;3D
+keybind = alt+right=csi:1;3C
+keybind = ctrl+shift+f=toggle_fullscreen
+keybind = cmd+shift+r=reload_config
+
+command-palette-entry = title:vim mode,action:activate_key_table:vim

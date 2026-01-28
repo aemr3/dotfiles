@@ -167,9 +167,13 @@ return {
         preset = "default",
       },
       sidebar_filetypes = {
-        ["neo-tree"] = { event = "BufWipeout" },
+        ["neo-tree"] = { event = "BufWipeout", text = "", align = "left" },
       },
     },
+    config = function(_, opts)
+      require("barbar").setup(opts)
+      vim.api.nvim_set_hl(0, "BufferOffset", { link = "BufferTabpages" })
+    end,
     keys = {
       { "<leader>bp", "<Cmd>BufferPin<CR>", desc = "Toggle pin" },
       { "<leader>bP", "<Cmd>BufferCloseAllButPinned<CR>", desc = "Delete non-pinned buffers" },

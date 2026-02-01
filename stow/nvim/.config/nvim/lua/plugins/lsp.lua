@@ -74,23 +74,6 @@ return {
       "hrsh7th/nvim-cmp",
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-nvim-lsp",
-      {
-        "mrcjkb/rustaceanvim",
-        version = "^4",
-        ft = { "rust" },
-        keys = {
-          {
-            "<leader>rr",
-            "<cmd>RustLsp runnables<CR>",
-            desc = "LSP: [R]ust [R]unnables",
-          },
-          {
-            "<leader>rd",
-            "<cmd>RustLsp debuggables<CR>",
-            desc = "LSP: [R]ust [D]ebuggables",
-          },
-        },
-      },
     },
     init = function()
       local icons = require("config.icons")

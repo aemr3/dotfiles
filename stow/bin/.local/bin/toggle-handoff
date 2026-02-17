@@ -1,0 +1,16 @@
+#!/bin/bash
+
+DOMAIN="com.apple.coreservices.useractivityd"
+CURRENT=$(defaults -currentHost read $DOMAIN ActivityAdvertisingAllowed 2>/dev/null)
+
+if [ "$CURRENT" == "0" ]; then
+    defaults -currentHost write $DOMAIN ActivityAdvertisingAllowed -bool yes
+    defaults -currentHost write $DOMAIN ActivityReceivingAllowed -bool yes
+    killall useractivityd 2>/dev/null
+    echo "Handoff: ON"
+else
+    defaults -currentHost write $DOMAIN ActivityAdvertisingAllowed -bool no
+    defaults -currentHost write $DOMAIN ActivityReceivingAllowed -bool no
+    killall useractivityd 2>/dev/null
+    echo "Handoff: OFF"
+fi

@@ -20,7 +20,7 @@ shell-integration-features = true
 link-url = true
 
 auto-update = download
-auto-update-channel = tip
+auto-update-channel = stable
 
 keybind = shift+enter=text:\n
 keybind = cmd+h=text:§h

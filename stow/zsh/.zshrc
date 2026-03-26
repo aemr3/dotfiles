@@ -61,6 +61,9 @@ fi
 export PNPM_HOME=~/.pnpm
 export PATH=$PATH:~/.pnpm
 
+# bun completions
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
+
 # Activate gcloud sdk
 if [ -f "$(brew --prefix)/share/google-cloud-sdk/path.zsh.inc" ]; then
   . "$(brew --prefix)/share/google-cloud-sdk/path.zsh.inc"
@@ -141,6 +144,7 @@ export PATH=$HOME/.local/bin:$PATH
 export PATH=$HOME/.bun/bin:$PATH
 export PATH=${KREW_ROOT:-$HOME/.krew}/bin:$PATH
 export PATH=$PATH:$HOME/.docker/bin
+export PATH=$PATH:$HOME/.lmstudio/bin
 export GOBIN=$HOME/.local/bin
 if [ -d ~/Library ]; then
   export PATH=$PATH:~/Library/Android/sdk/platform-tools

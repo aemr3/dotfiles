@@ -112,5 +112,6 @@ cask "docker-desktop"
 cask "1password-cli"
 cask "proton-drive"
 cask "proxyman"
+cask "orbstack"
 mas "Xcode", id: 497799835
 mas "WireGuard", id: 1451685025

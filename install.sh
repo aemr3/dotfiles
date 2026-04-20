@@ -13,6 +13,7 @@ install_brew
 install_ohmyzsh
 enable_zsh
 install_brew_packages
+configure_sudo_touchid
 stow_dotfiles
 
 success "Installation complete."

@@ -13,6 +13,32 @@ enable_zsh() {
   fi
 }
 
+configure_sudo_touchid() {
+  if [ "$OS" != "macos" ]; then
+    return 0
+  fi
+
+  local pam_reattach="${HOMEBREW_PATH}/lib/pam/pam_reattach.so"
+  local sudo_local="/etc/pam.d/sudo_local"
+
+  if [ ! -f "$pam_reattach" ]; then
+    info "Installing pam-reattach (needed for Touch ID sudo from tmux)..."
+    brew install pam-reattach
+  fi
+
+  if [ -f "$sudo_local" ] \
+    && grep -q "pam_tid.so" "$sudo_local" \
+    && grep -q "pam_reattach.so" "$sudo_local"; then
+    return 0
+  fi
+
+  info "Enabling Touch ID for sudo (allows sudo from tmux popups; falls back to password on SSH/VNC)..."
+  sudo tee "$sudo_local" >/dev/null <<EOF
+auth       optional     ${pam_reattach}
+auth       sufficient   pam_tid.so
+EOF
+}
+
 stow_dotfiles() {
   if [ ! -d "$HOME/.config" ]; then
     mkdir -p $HOME/.config

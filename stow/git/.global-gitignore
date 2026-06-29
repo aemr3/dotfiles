@@ -17,3 +17,5 @@ Thumbs.db
 .ai/
 .superset/
 .rgignore
+
+**/.claude/settings.local.json

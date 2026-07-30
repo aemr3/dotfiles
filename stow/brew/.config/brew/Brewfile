@@ -16,7 +16,7 @@ brew "ripgrep"
 brew "ast-grep"
 brew "btop"
 brew "htop"
-brew "tmux", args: ["HEAD"]
+brew "tmux"
 brew "gh"
 brew "glab"
 brew "gnu-sed"

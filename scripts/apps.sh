@@ -38,11 +38,7 @@ install_ohmyzsh() {
 }
 
 install_brew_packages() {
-  if ! brew list --formula | grep -q tmux; then
-    info "Installing latest tmux..."
-    brew install tmux --HEAD
-  fi
-  initial_packages="neovim gh glab stow"
+  initial_packages="tmux neovim gh glab stow"
   missing_packages=""
   for package in $initial_packages; do
     if ! brew list --formula | grep -q $package; then

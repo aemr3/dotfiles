@@ -151,7 +151,12 @@ if [ -d ~/Library ]; then
   export ANDROID_HOME=~/Library/Android/sdk
   export ANDROID_SDK_ROOT=~/Library/Android/sdk
 fi
-export OPENCODE_DISABLE_DEFAULT_PLUGINS=1
+if [ -d $HOME/superset ]; then
+  export PATH="$HOME/superset/bin:$PATH"
+fi
+if [ -d $HOME/.opencode ]; then
+  export PATH="$HOME/.opencode/bin:$PATH"
+fi
 export NODE_OPTIONS="--experimental-sqlite"
 
 # Key bindings

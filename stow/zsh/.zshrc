@@ -19,11 +19,13 @@ export HOMEBREW_CASK_OPTS="--appdir=/Applications"
 eval $($HOMEBREW_PATH/bin/brew shellenv)
 
 # Activate oh-my-zsh
-export ZSH=$HOME/.oh-my-zsh
-ZSH_THEME="powerlevel10k/powerlevel10k"
-plugins=(git macos docker docker-compose kubectl ssh zsh-autosuggestions zsh-syntax-highlighting)
-source $ZSH/oh-my-zsh.sh
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+if [[ -o interactive ]]; then
+  export ZSH=$HOME/.oh-my-zsh
+  ZSH_THEME="powerlevel10k/powerlevel10k"
+  plugins=(git macos docker docker-compose kubectl ssh zsh-autosuggestions zsh-syntax-highlighting)
+  source $ZSH/oh-my-zsh.sh
+  [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+fi
 
 # Load nvm
 export NVM_DIR="$HOME/.nvm"

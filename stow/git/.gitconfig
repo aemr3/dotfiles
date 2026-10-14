@@ -24,7 +24,6 @@
 	gpgsign = true
 [core]
 	autocrlf = input
-	excludesfile = ~/.global-gitignore
 [init]
 	defaultBranch = main
 [alias]

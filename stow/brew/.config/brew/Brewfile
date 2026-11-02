@@ -1,8 +1,3 @@
-tap "jesseduffield/lazygit"
-tap "johanhaleby/kubetail"
-tap "jesseduffield/lazydocker"
-tap "oven-sh/bun"
-tap "supabase/tap"
 brew "coreutils"
 brew "cmake"
 brew "zsh"
@@ -56,17 +51,16 @@ brew "temporal"
 brew "coder"
 brew "rclone"
 brew "wireguard-tools"
-brew "jesseduffield/lazygit/lazygit", trusted: true
-brew "johanhaleby/kubetail/kubetail", trusted: true
-brew "jesseduffield/lazydocker/lazydocker", trusted: true
-brew "oven-sh/bun/bun", trusted: true
-brew "supabase/tap/supabase", trusted: true
+brew "lazygit"
+brew "lazydocker"
+brew "bun"
+brew "supabase"
+brew "kubetail"
 
 if OS.mac?
-  tap "xcodesorg/made"
   brew "mactop"
   brew "pam-reattach"
-  brew "xcodesorg/made/xcodes", trusted: true
+  brew "xcodes"
   brew "mas"
   cask "1password@beta"
   cask "dropbox"

@@ -126,6 +126,8 @@ return {
   {
     "stevearc/conform.nvim",
     opts = {
+      -- Callers must not pass lsp_format themselves, or it overrides per-filetype lsp_format.
+      default_format_opts = { lsp_format = "fallback" },
       formatters_by_ft = {
         lua = { "stylua" },
         typescript = { "prettier" },
@@ -142,7 +144,9 @@ return {
         docker = { "prettier" },
         sh = { "shfmt" },
         go = { "goimports", "gofmt" },
-        ruby = { "rubocop" },
+        -- Standalone rubocop starts too slowly for the save timeout. ruby-lsp keeps it loaded,
+        -- but only formats in projects that depend on rubocop.
+        ruby = { lsp_format = "prefer" },
         rust = { "rustfmt" },
         yaml = { "yq" },
         toml = { "taplo" },
@@ -160,7 +164,7 @@ return {
         if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
           return
         end
-        return { timeout_ms = 500, lsp_fallback = true }
+        return { timeout_ms = 500 }
       end,
     },
   },

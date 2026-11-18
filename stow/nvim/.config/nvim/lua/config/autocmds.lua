@@ -27,7 +27,7 @@ autocmd("LspAttach", {
     map("n", "gK", vim.lsp.buf.signature_help, { desc = "Signature Help" })
     map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "[C]ode [A]ctions" })
     map("n", "<leader>cf", function()
-      require("conform").format({ lsp_fallback = true })
+      require("conform").format()
     end, { desc = "[C]ode [F]ormat" })
   end,
 })

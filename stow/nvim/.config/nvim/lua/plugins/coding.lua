@@ -107,7 +107,8 @@ return {
           enabled = true,
           create = "split",
           split = {
-            size = 0.3,
+            vertical = true,
+            size = 0.35,
           },
         },
         picker = "telescope",
@@ -117,7 +118,28 @@ return {
       {
         "<a-a>",
         function()
-          require("sidekick.cli").toggle()
+          if not vim.env.TMUX then
+            return require("sidekick.cli").toggle()
+          end
+          -- Tmux-backed sessions live in their own pane with no nvim terminal, so cli.toggle() has nothing to hide.
+          -- Hiding moves the pane to a background window instead; tmux.conf binds M-a to hide it from inside the pane.
+          require("sidekick.cli.state").with(function(state, just_attached)
+            local pane = state.session and state.session.tmux_pane_id
+            if not pane then
+              return
+            end
+            local function window_of(target)
+              return vim.trim(vim.system({ "tmux", "display", "-p", "-t", target, "#{window_id}" }):wait().stdout or "")
+            end
+            vim.system({ "tmux", "set-option", "-p", "-t", pane, "@sidekick", "1" }):wait()
+            if window_of(pane) ~= window_of(vim.env.TMUX_PANE) then
+              vim.system({ "tmux", "join-pane", "-h", "-l", "35%", "-s", pane, "-t", vim.env.TMUX_PANE })
+            elseif just_attached then
+              vim.system({ "tmux", "select-pane", "-t", pane })
+            else
+              vim.system({ "tmux", "break-pane", "-d", "-n", state.tool.name, "-s", pane })
+            end
+          end, { attach = true, show = true, focus = false })
         end,
         desc = "Sidekick Toggle",
         mode = { "n", "t", "i", "x" },
@@ -173,13 +195,6 @@ return {
         end,
         mode = { "n", "x" },
         desc = "Sidekick Select Prompt",
-      },
-      {
-        "<leader>ac",
-        function()
-          require("sidekick.cli").toggle({ name = "opencode", focus = true })
-        end,
-        desc = "Sidekick Toggle OpenCode",
       },
     },
   },

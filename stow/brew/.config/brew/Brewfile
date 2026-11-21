@@ -81,6 +81,7 @@ if OS.mac?
   cask "tableplus"
   cask "zen"
   cask "zed"
+  cask "superset"
   cask "google-chrome"
   cask "brave-browser"
   cask "duckduckgo"

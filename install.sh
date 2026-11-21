@@ -15,6 +15,10 @@ install_ohmyzsh
 enable_zsh
 install_brew_packages
 configure_sudo_touchid
+configure_dock
+configure_finder
+configure_trackpad
+configure_keyboard
 stow_dotfiles
 install_agent_harnesses
 

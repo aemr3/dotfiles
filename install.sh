@@ -2,6 +2,7 @@
 
 set -o errexit
 set -o nounset
+set -o pipefail
 
 . scripts/env.sh
 . scripts/config.sh
@@ -15,6 +16,7 @@ enable_zsh
 install_brew_packages
 configure_sudo_touchid
 stow_dotfiles
+install_agent_harnesses
 
 success "Installation complete."
 success "Please restart your terminal to apply changes."

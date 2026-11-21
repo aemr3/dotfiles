@@ -6,7 +6,7 @@ REPO_URL="https://github.com/aemr3/dotfiles.git"
 USER=${USER:-$(id -u -n)}
 HOME="${HOME:-$(getent passwd $USER 2>/dev/null | cut -d: -f6)}"
 HOME="${HOME:-$(eval echo ~$USER)}"
-SHELL=$(getent passwd $USER 2>/dev/null | cut -d : -f 7 | xargs basename)
+SHELL=$(getent passwd $USER 2>/dev/null | cut -d : -f 7 | xargs basename || true)
 ESSENTIAL_PACKAGES="git curl ps gcc"
 SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" &>/dev/null && pwd)
 

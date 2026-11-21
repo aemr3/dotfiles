@@ -17,3 +17,7 @@ err() {
 warn() {
   printf "%s> %s%s\n" "$(tput setaf 3)" "$1" "$reset_color"
 }
+
+without_tty() {
+  perl -MPOSIX -e 'POSIX::setsid() != -1 or die "setsid: $!\n"; exec @ARGV or die "exec: $!\n"' "$@"
+}

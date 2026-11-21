@@ -19,6 +19,9 @@ require("lazy").setup("plugins", {
       },
     },
   },
+  git = {
+    timeout = 600,
+  },
   ui = {
     border = "rounded",
   },

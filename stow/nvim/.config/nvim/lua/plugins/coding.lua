@@ -104,8 +104,11 @@ return {
       cli = {
         mux = {
           backend = "tmux",
-          enabled = false,
-          create = "terminal",
+          enabled = true,
+          create = "split",
+          split = {
+            size = 0.3,
+          },
         },
         picker = "telescope",
       },
